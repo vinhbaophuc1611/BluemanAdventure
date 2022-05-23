@@ -5,8 +5,7 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.event.KeyEvent;
 import java.awt.Graphics2D;
-
-// import javax.swing.JPanel;
+import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
     
@@ -34,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //SYSTEM
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
+    KeyHandler keyH = new KeyHandler(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
@@ -63,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         assetSetter.setobject();
-        assetSetter.setnpc();
+        assetSetter.setNPC();
         gameState = playState;
     }
 
@@ -129,10 +128,10 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-        // if(gameState == pauseState){
+        if(gameState == gamePause){
 
-        //     //WAITING 
-        // }
+            //WAITING 
+        }
 
 
     }

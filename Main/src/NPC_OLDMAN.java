@@ -1,10 +1,10 @@
-import java.awt.*;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.IOException;
+// import java.awt.*;
+// import javax.imageio.ImageIO;
+// import java.awt.image.BufferedImage;
+// import java.io.IOException;
 import java.util.Random;
-import java.awt.Rectangle;
-import java.awt.Graphics2D;
+// import java.awt.Rectangle;
+// import java.awt.Graphics2D;
 public class NPC_OLDMAN extends Entity{
 
     public NPC_OLDMAN(GamePanel gp){
@@ -27,25 +27,23 @@ public class NPC_OLDMAN extends Entity{
 
     }
 
-    public void setAcion(){
+    public void setAction(){
 
-        actionLockCounter ++;
-        
-        if(actionLockCounter == 0){
-
+        actionLockCounter++;
+        if(actionLockCounter == 120){
             Random random = new Random();
-            //PICK UP A NUMBER FROM 1 - 100
-            int i = random.nextInt(0)+1; 
-            if(i <= 0){
+            //PICK UP A NUMBER FROM 1 - 100 or 0 - 99
+            int i = random.nextInt(100) + 1; 
+            if(i <= 25){
                 direction = "up";
             }
-            else if(i > 0 && i <= 0){
+            if(i > 25 && i <= 50){
                 direction = "down";
             }
-            else if(i > 0 && i <= 0){
+            if(i > 50 && i <= 75){
                 direction = "left";
             }
-            else if(i > 0 && i <= 0){
+            if(i > 75 && i <= 100){
                 direction = "right";
             }
 
