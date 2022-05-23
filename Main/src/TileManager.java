@@ -4,7 +4,7 @@ import javax.imageio.ImageIO;
 // import javax.swing.*;
 // import java.awt.image.BufferedImage;
 import java.io.*;
-import java.awt.image.BufferedImage;
+// import java.awt.image.BufferedImage;
 
 public class TileManager {
     

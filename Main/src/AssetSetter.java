@@ -31,11 +31,11 @@ public class AssetSetter{
 
     } 
 
-    public void setnpc(){
+    public void setNPC(){
 
         gp.npc[0] = new NPC_OLDMAN(gp);
-        gp.npc[0].worldX = 10 * gp.tileSize;
-        gp.npc[0].worldY = 4 * gp.tileSize;
+        gp.npc[0].worldX = gp.tileSize * 9;
+        gp.npc[0].worldY = gp.tileSize * 5;
 
     }
 }

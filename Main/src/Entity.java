@@ -2,7 +2,7 @@
 // import Main.KeyHandler;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
-import java.awt.*;
+// import java.awt.*;
 import java.awt.Rectangle;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -45,23 +45,23 @@ public class Entity {
         if(collision == false) {
             switch(direction) {
     
-                case "up": worldY -= speed; break;
-                case "down": worldY += speed; break;
-                case "left": worldX -= speed;break;
-                case "right": worldX += speed; break;
+            case "up": worldY -= speed; break;
+            case "down": worldY += speed; break;
+            case "left": worldX -= speed;break;
+            case "right": worldX += speed; break;
     
             }
         }
         spriteCounter++;
-            if(spriteCounter > 12){
-                if(spriteNum == 1){
-                    spriteNum = 2;
-                }
-                else if(spriteNum == 2){
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
+        if(spriteCounter > 12){
+            if(spriteNum == 1){
+                spriteNum = 2;
             }
+            else if(spriteNum == 2){
+                spriteNum = 1;
+            }
+            spriteCounter = 0;
+        }
     }
 
     public void draw(Graphics2D g2, GamePanel gamePanel) {
