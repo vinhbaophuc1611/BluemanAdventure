@@ -33,6 +33,7 @@ public class NPC_OLDMAN extends Entity{
 
         dialogues[0] = "Hello, world!";
         dialogues[1] = "Arcade Fire's 'The Suburbs' won the Album \nof the Year award in the 2011 Grammys.";
+        dialogues[2] = "The cover of The Beatles album 'Abbey' \nfeatured a Volkswagen Beetle in the background.";
     }
 
     public void setAction(){
