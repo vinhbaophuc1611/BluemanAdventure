@@ -1,9 +1,9 @@
 import java.awt.event.KeyListener;
 
 import java.awt.*;
-import javax.swing.*;
-import java.awt.event.*;
-import java.awt.event.KeyEvent;
+// import javax.swing.*;
+// import java.awt.event.*;
+// import java.awt.event.KeyEvent;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // WORLD SETTINGS
     public final int maxWorldCol = 16;
-    public final int maxWorldRow = 17;
+    public final int maxWorldRow = 18;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -33,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //SYSTEM
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
@@ -48,6 +48,7 @@ public class GamePanel extends JPanel implements Runnable {
     public int gameState;
     public final int playState = 1;
     public final int gamePause = 2;
+    public final int dialogueState = 3;
 
     public GamePanel() {
         
