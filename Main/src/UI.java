@@ -4,13 +4,16 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.awt.*;
 
 public class UI {
     
     GamePanel gp;
-    Font arial_40;
+    // Font arial_40, arial_80B;
+    Font maruMFont, purisa;
     BufferedImage keyImage;
     public boolean messageOn = false;
     public String message = "";
@@ -24,7 +27,19 @@ public class UI {
     public UI(GamePanel gp){
         this.gp = gp;
 
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
+        // arial_40 = new Font("Cambria", Font.PLAIN, 40);
+        // arial_80B = new Font("Arial", Font.BOLD, 80);
+        try{
+            InputStream is = getClass().getResourceAsStream("x12y16pxMaruMonica.ttf");
+            maruMFont = Font.createFont(Font.TRUETYPE_FONT, is);
+            is = getClass().getResourceAsStream("Purisa Bold.ttf");
+            purisa = Font.createFont(Font.TRUETYPE_FONT, is); 
+        }catch(FontFormatException e){
+            e.printStackTrace();
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        
         OBJ_KEY key = new OBJ_KEY(gp);
         keyImage = key.image;
     }
@@ -37,7 +52,9 @@ public class UI {
     public void draw(Graphics2D g2){
 
         this.g2 = g2;
-        g2.setFont(arial_40);
+        // g2.setFont(maruMFont);
+        g2.setFont(purisa);
+        g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.setColor(Color.white);
         g2.drawImage(keyImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
         g2.drawString("x " + gp.player.hasKey, 74, 65);
