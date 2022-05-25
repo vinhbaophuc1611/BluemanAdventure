@@ -13,7 +13,9 @@ public class NPC_OLDMAN extends Entity{
         direction = "down";
         speed = 1;
         getImage();
+        setDialogue();
     }
+
     public void getImage() {
 
         up1 = setup("oldman_up_1");
@@ -25,6 +27,13 @@ public class NPC_OLDMAN extends Entity{
         right1 = setup("oldman_right_1");
         right2 = setup("oldman_right_2");
 
+    }
+
+    public void setDialogue(){
+
+        dialogues[0] = "Hello, world!";
+        dialogues[1] = "Arcade Fire's 'The Suburbs' won the Album \nof the Year award in the 2011 Grammys.";
+        dialogues[2] = "The cover of The Beatles album 'Abbey' \nfeatured a Volkswagen Beetle in the background.";
     }
 
     public void setAction(){
@@ -49,6 +58,11 @@ public class NPC_OLDMAN extends Entity{
 
             actionLockCounter = 0;
         }
+    }
+
+    public void speak(){
+
+        super.speak();
     }
     
 }
