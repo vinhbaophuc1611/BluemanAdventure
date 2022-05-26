@@ -19,6 +19,7 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public String currentDialogue = "";
+    public int commandNum = 0;
 
     double playTime ;
     DecimalFormat DF = new DecimalFormat("#0");
@@ -114,7 +115,7 @@ public class UI {
         g2.drawString(text, x, y);
 
         //BLUE BOY IMAGE
-        x = gp.screenWidth/2 - (gp.tileSize/2);
+        x = gp.screenWidth/2 - (gp.tileSize*2)/2;
         y += gp.tileSize * 2;
         g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
 
@@ -123,18 +124,27 @@ public class UI {
 
         text = "NEW GAME";
         x = getXforCenteredText(text);
-        y += gp.tileSize * 4;
+        y += gp.tileSize * 3.5;
         g2.drawString(text, x, y);
+        if(commandNum == 0){
+            g2.drawString(">", x - gp.tileSize, y);
+        }
 
         text = "LOAD GAME";
         x = getXforCenteredText(text);
         y += gp.tileSize ;
         g2.drawString(text, x, y);
+        if(commandNum == 1){
+            g2.drawString(">", x - gp.tileSize, y);
+        }
 
         text = "QUIT";
         x = getXforCenteredText(text);
         y += gp.tileSize;
         g2.drawString(text, x, y);
+        if(commandNum == 2){
+            g2.drawString(">", x - gp.tileSize, y);
+        }
     }
 
     public void drawPauseScreen(){
