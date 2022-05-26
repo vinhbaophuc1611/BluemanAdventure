@@ -1,7 +1,22 @@
 # Blueman-Adventure
 
 ## Documentation
- 
+### MAP 
+
+#### Jingle Jungle
+- 1-2 NPCs 
+- 5 monsters (including a boss)
+- 10 questions (including an extra question with bonus items)
+- 5-10 keys
+- 1 extra life (a present from answering the extra question)
+- Extra question will be covered somewhere in the map
+
+#### City of films
+- 1-2 NPCs 
+- 5 monsters (including 1 final boss)
+- 10 questions 
+- 5-10 keys
+
 ## Screenshots
 
 
