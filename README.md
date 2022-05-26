@@ -2,9 +2,7 @@
 
 ## Documentation
 ### MAP 
-
 #### Jingle Jungle
-
 - 1-2 NPCs 
 - 5 monsters (including a boss)
 - 10 questions (including an extra question with bonus items)
