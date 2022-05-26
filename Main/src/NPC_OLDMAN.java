@@ -34,6 +34,7 @@ public class NPC_OLDMAN extends Entity{
         dialogues[0] = "Hello, world!";
         dialogues[1] = "Arcade Fire's 'The Suburbs' won \nthe Album of the Year \naward in the 2011 Grammys.";
         dialogues[2] = "The cover of The Beatles album \n'Abbey' featured a Volkswagen \nBeetle in the background.";
+        dialogues[3] = "The country song 'A Boy Named \nSue' was written by Shel Silverstein.";
     }
 
     public void setAction(){

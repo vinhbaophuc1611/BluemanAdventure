@@ -75,8 +75,15 @@ public class UI {
                 messageOn = false;
             }
         }
+
+        //TITLE SCREEN
+        if(gp.gameState == gp.titleState){
+            drawTitlesScreen();
+        }
+
         //PLAY STATE
         if(gp.gameState == gp.playState){
+            //DO SOME STUFF LATER ON
 
         }
         //PAUSE STATE
@@ -87,6 +94,47 @@ public class UI {
         if(gp.gameState == gp.dialogueState){
             drawDialogueScreen();
         }
+    }
+
+    public void drawTitlesScreen(){
+
+        g2.setColor(new Color(255, 255, 255));
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        //TITLE NAME
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60F));
+        String text = "Blueman Adventure";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
+        //SHADOW COLOR
+        g2.setColor(new Color(153, 153, 153));
+        g2.drawString(text, x + 5, y + 5);
+        
+        //MAIN COLOR
+        g2.setColor(Color.red);
+        g2.drawString(text, x, y);
+
+        //BLUE BOY IMAGE
+        x = gp.screenWidth/2 - (gp.tileSize/2);
+        y += gp.tileSize * 2;
+        g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+
+        //MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        text = "NEW GAME";
+        x = getXforCenteredText(text);
+        y += gp.tileSize * 4;
+        g2.drawString(text, x, y);
+
+        text = "LOAD GAME";
+        x = getXforCenteredText(text);
+        y += gp.tileSize ;
+        g2.drawString(text, x, y);
+
+        text = "QUIT";
+        x = getXforCenteredText(text);
+        y += gp.tileSize;
+        g2.drawString(text, x, y);
     }
 
     public void drawPauseScreen(){
@@ -107,7 +155,7 @@ public class UI {
         int height = gp.tileSize * 4;
         drawSub(x, y, width, height);
 
-        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 25F));
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 23F));
         x += gp.tileSize;
         y += gp.tileSize;
 
