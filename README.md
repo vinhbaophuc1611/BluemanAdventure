@@ -4,6 +4,7 @@
 ### MAP 
 
 #### Jingle Jungle
+<br>
 - 1-2 NPCs 
 - 5 monsters (including a boss)
 - 10 questions (including an extra question with bonus items)
@@ -12,6 +13,7 @@
 - Extra question will be covered somewhere in the map
 
 #### City of films
+<br>
 - 1-2 NPCs 
 - 5 monsters (including 1 final boss)
 - 10 questions 
