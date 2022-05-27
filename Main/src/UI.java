@@ -15,6 +15,7 @@ public class UI {
     // Font arial_40, arial_80B;
     Font maruMFont, purisa;
     BufferedImage keyImage;
+    BufferedImage heart_half, heart_full, heart_blank;
     public boolean messageOn = false;
     public String message = "";
     int messageCounter = 0;
@@ -43,6 +44,12 @@ public class UI {
         
         OBJ_KEY key = new OBJ_KEY(gp);
         keyImage = key.image;
+
+        //CREATE HUD
+        superobject Heart = new OBJ_HEART(gp);
+        heart_full = Heart.image;
+        heart_half = Heart.image2;
+        heart_blank = Heart.image3;
     }
 
     public void showMessage(String text){
@@ -84,16 +91,44 @@ public class UI {
 
         //PLAY STATE
         if(gp.gameState == gp.playState){
-            //DO SOME STUFF LATER ON
+            drawPlayerLife();
 
         }
         //PAUSE STATE
         if(gp.gameState == gp.gamePause){
+            drawPlayerLife();
             drawPauseScreen();
         }
         //DISPLAY MESSAGE
         if(gp.gameState == gp.dialogueState){
+            drawPlayerLife();
             drawDialogueScreen();
+        }
+    }
+
+    public void drawPlayerLife(){
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize * 10;
+        int i = 0;
+        //DRAW MAX HEART
+        while(i < gp.player.maxLife / 2){
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+        //RESET
+        x = gp.tileSize / 2;
+        y = gp.tileSize * 10;
+        i = 0;
+        //DRAW CURRENT LIFE
+        while(i < gp.player.life){
+            g2.drawImage(heart_half, x, y, null);
+            i++;
+            if(i < gp.player.life){
+                g2.drawImage(heart_full, x, y, null);
+            }
+            i++;
+            x += gp.tileSize;
         }
     }
 
