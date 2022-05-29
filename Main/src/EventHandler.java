@@ -17,9 +17,30 @@ public class EventHandler {
         eventRectDefaultY = eventRect.y;
     }
     public void checkEvent(){
-        if(hit(8, 6, "down") == true){
-            //EVENT HAPPEN
-            teleport(gp.dialogueState);
+        // if(hit(11, 31, "down") == true){
+        //     //EVENT HAPPEN
+        //     teleport(gp.dialogueState);
+        //     gp.player.worldX = gp.tileSize * 11;
+        //     gp.player.worldY = gp.tileSize * 35;
+        // }
+        // if(hit(12, 31, "down") == true){
+        //     teleport(gp.dialogueState);
+        //     // gp.player.worldX = gp.tileSize * 12;
+        //     // gp.player.worldY = gp.tileSize * 35;
+        // }
+        for(int i = 0; i < 10; i++){
+            if(hit(11, 31, "down") == true){
+                teleport1(gp.dialogueState);
+            }
+            if(hit(12, 31, "down") == true){
+                teleport2(gp.dialogueState);
+            }
+            if(hit(11, 35, "up") == true){
+                teleport3(gp.dialogueState);
+            }
+            if(hit(12, 35, "up") == true){
+                teleport4(gp.dialogueState);
+            }
         }
 
     }
@@ -43,11 +64,29 @@ public class EventHandler {
         eventRect.y = eventRectDefaultY;
         return hit;
     }
-    public void teleport(int gameState){
+    public void teleport1(int gameState){
         gp.gameState = gameState;
         gp.ui.currentDialogue = "Teleport";
-        gp.player.worldX = gp.tileSize * 8;
-        gp.player.worldY = gp.tileSize * 10;
+        gp.player.worldX = gp.tileSize * 11;
+        gp.player.worldY = gp.tileSize * 35;
+    }
+    public void teleport2(int gameState){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "Teleport";
+        gp.player.worldX = gp.tileSize * 12;
+        gp.player.worldY = gp.tileSize * 35;
+    }
+    public void teleport3(int gameState){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "Teleport";
+        gp.player.worldX = gp.tileSize * 11;
+        gp.player.worldY = gp.tileSize * 31;
+    }
+    public void teleport4(int gameState){
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "Teleport";
+        gp.player.worldX = gp.tileSize * 12;
+        gp.player.worldY = gp.tileSize * 31;
     }
 
 

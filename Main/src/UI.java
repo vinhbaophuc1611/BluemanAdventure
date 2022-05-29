@@ -46,7 +46,7 @@ public class UI {
         keyImage = key.image;
 
         //CREATE HUD
-        superobject Heart = new OBJ_HEART(gp);
+        Entity Heart = new OBJ_HEART(gp);
         heart_full = Heart.image;
         heart_half = Heart.image2;
         heart_blank = Heart.image3;

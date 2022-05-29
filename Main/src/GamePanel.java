@@ -1,11 +1,13 @@
 import java.awt.event.KeyListener;
-
+import java.util.ArrayList;
 import java.awt.*;
 // import javax.swing.*;
 // import java.awt.event.*;
 // import java.awt.event.KeyEvent;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     
@@ -23,8 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
     // final int screenHeight = 1080; // 1080 pixels
 
     // WORLD SETTINGS
-    public final int maxWorldCol = 18;
-    public final int maxWorldRow = 14;
+    public final int maxWorldCol = 62;
+    public final int maxWorldRow = 62;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -42,8 +44,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     //ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
-    public superobject obj[] = new superobject[10];
+    public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
 
     //GAME STATE
     public int gameState;
@@ -84,39 +87,22 @@ public class GamePanel extends JPanel implements Runnable {
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while(gameThread != null) {
-
-            // long currentTime = System.nanoTime();
-            // System.out.println("current Time: " + currentTime);
-            // long currentTime2 = System.currentTimeMillis();
-
-
             // 1 UPDATE: update information such as character positions
             update();
-
             // 2 DRAW: draw the screen with the update information
             repaint();
-
-            // double remainingTime = nextDrawTime - System.nanoTime();
 
             try {
 
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1000000;
-
                 if(remainingTime < 0) remainingTime = 0; // SET REMAINING_TIME TO 0
-
                 Thread.sleep((long) remainingTime);
-
                 nextDrawTime += drawInterval;
-
             } catch (InterruptedException e) {
-
                 e.printStackTrace();
-
             }
-
         }
-
     }
     
     public void update() {
@@ -132,11 +118,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         if(gameState == gamePause){
-
             //WAITING 
         }
-
-
     }
 
     public void paintComponent(Graphics g) {
@@ -157,23 +140,42 @@ public class GamePanel extends JPanel implements Runnable {
         }
         //OTHERS
         else{
-
             //TILE
             tileM.draw(g2);
-            //OBJECT
-            for(int i = 0; i < obj.length; i++) {
-                if(obj[i] != null) {
-                    obj[i].draw(g2, this);
+
+            //ADD ENTITES TO THE LIST
+            entityList.add(player);
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    entityList.add(npc[i]);
                 }
             }
-            //NPC
-            for(int i = 0; i < npc.length; i++) {
-                if(npc[i] != null) {
-                    npc[i].draw(g2, this);
+            for(int i = 0; i < obj.length; i++){
+                if(obj[i] != null){
+                    entityList.add(obj[i]);
                 }
             }
-            //PLAYER
-            player.draw(g2);
+
+            //SORT
+            Collections.sort(entityList, new Comparator<Entity>(){
+                
+                @Override
+                public int compare(Entity entity1, Entity entity2){
+
+                    int result = Integer.compare(entity1.worldY, entity2.worldY);
+                    return result;
+                }
+            });
+
+            //DRAW ENTITIES
+            for(int i = 0; i < entityList.size(); i++){
+                entityList.get(i).draw(g2, null);
+            }
+            //EMPTY ENTITY LIST
+            for(int i = 0; i < entityList.size(); i++){
+                entityList.remove(i);
+            }
+
             //UI
             ui.draw(g2);
         }
