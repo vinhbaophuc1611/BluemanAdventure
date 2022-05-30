@@ -16,7 +16,7 @@ public class Entity {
     public String direction = "right";
     public int spriteCounter = 0;
     public int spriteNum = 1;
-    public Rectangle solidArea = new Rectangle(0, 0, 30, 30);
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 30);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
     public int actionLockCounter = 0;
@@ -66,6 +66,8 @@ public class Entity {
         collision = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
         gp.cChecker.checkPlayer(this);
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
@@ -137,9 +139,7 @@ public class Entity {
                             break;
                     }
                 g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-
             }
-
     }
 
     public BufferedImage setup(String imagePath){

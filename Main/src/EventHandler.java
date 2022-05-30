@@ -17,17 +17,6 @@ public class EventHandler {
         eventRectDefaultY = eventRect.y;
     }
     public void checkEvent(){
-        // if(hit(11, 31, "down") == true){
-        //     //EVENT HAPPEN
-        //     teleport(gp.dialogueState);
-        //     gp.player.worldX = gp.tileSize * 11;
-        //     gp.player.worldY = gp.tileSize * 35;
-        // }
-        // if(hit(12, 31, "down") == true){
-        //     teleport(gp.dialogueState);
-        //     // gp.player.worldX = gp.tileSize * 12;
-        //     // gp.player.worldY = gp.tileSize * 35;
-        // }
         for(int i = 0; i < 10; i++){
             if(hit(11, 31, "down") == true){
                 teleport1(gp.dialogueState);

@@ -7,7 +7,7 @@ public class AssetSetter{
     public void setobject(){
         gp.obj[0] = new OBJ_KEY(gp);
         gp.obj[0].worldX = 38 * gp.tileSize;
-        gp.obj[0].worldY = 16 * gp.tileSize;
+        gp.obj[0].worldY = 45 * gp.tileSize;
 
         gp.obj[1] = new OBJ_DOOR(gp);
         gp.obj[1].worldX = 38 * gp.tileSize;
@@ -18,8 +18,8 @@ public class AssetSetter{
         gp.obj[2].worldY = 10 * gp.tileSize;
 
         gp.obj[3] = new OBJ_KEY(gp);
-        gp.obj[3].worldX = 10 * gp.tileSize;
-        gp.obj[3].worldY = 10 * gp.tileSize;
+        gp.obj[3].worldX = 47 * gp.tileSize;
+        gp.obj[3].worldY = 25 * gp.tileSize;
 
         // gp.obj[4] = new OBJ_DOOR(gp);
         // gp.obj[4].worldX = 23 * gp.tileSize;
@@ -49,6 +49,12 @@ public class AssetSetter{
         gp.npc[3].worldX = gp.tileSize * 33;
         gp.npc[3].worldY = gp.tileSize * 43;
 
+    }
 
+    public void setMonster(){
+
+        gp.monster[0] = new MON(gp);
+        gp.monster[0].worldX = gp.tileSize * 30;
+        gp.monster[0].worldY = gp.tileSize * 18;
     }
 }

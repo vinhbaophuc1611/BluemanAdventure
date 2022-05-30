@@ -31,7 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldHeight = tileSize * maxWorldRow;
 
     // FPS
-    int FPS = 60;
+    int FPS = 75;
 
     //SYSTEM
     TileManager tileM = new TileManager(this);
@@ -46,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyH);
     public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
+    public Entity monster[] = new Entity[10];
     ArrayList<Entity> entityList = new ArrayList<>();
 
     //GAME STATE
@@ -69,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         assetSetter.setobject();
         assetSetter.setNPC();
+        assetSetter.setMonster();
         gameState = titleState;
     }
 
@@ -116,6 +118,12 @@ public class GamePanel extends JPanel implements Runnable {
                     npc[i].update();
                 }
             }
+            //MONSTER
+            for(int i = 0; i < monster.length; i++){
+                if(monster[i] != null){
+                    monster[i].update();
+                }
+            }
         }
         if(gameState == gamePause){
             //WAITING 
@@ -125,15 +133,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
 
         super.paintComponent(g);
-
         Graphics2D g2 = (Graphics2D)g;
-
         //DEBUG
         long drawStart = 0;
         if(keyH.checkDrawTime == true){
             drawStart = System.nanoTime();
         }
-        
         //TITLE SCREEN
         if(gameState == titleState){
             ui.draw(g2);
@@ -142,7 +147,6 @@ public class GamePanel extends JPanel implements Runnable {
         else{
             //TILE
             tileM.draw(g2);
-
             //ADD ENTITES TO THE LIST
             entityList.add(player);
             for(int i = 0; i < npc.length; i++){
@@ -155,7 +159,11 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(obj[i]);
                 }
             }
-
+            for(int i = 0; i < monster.length; i++){
+                if(monster[i] != null){
+                    entityList.add(monster[i]);
+                }
+            }
             //SORT
             Collections.sort(entityList, new Comparator<Entity>(){
                 
@@ -166,7 +174,6 @@ public class GamePanel extends JPanel implements Runnable {
                     return result;
                 }
             });
-
             //DRAW ENTITIES
             for(int i = 0; i < entityList.size(); i++){
                 entityList.get(i).draw(g2, null);
@@ -175,12 +182,9 @@ public class GamePanel extends JPanel implements Runnable {
             for(int i = 0; i < entityList.size(); i++){
                 entityList.remove(i);
             }
-
             //UI
             ui.draw(g2);
         }
-
-
         //DEBUG
         if(keyH.checkDrawTime == true){
             long drawEnd = System.nanoTime();
@@ -189,9 +193,6 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("Draw Time: " + passed, 10, 400);
             System.out.println("Draw Time: " + passed);
         }
-        
         g2.dispose();
-
     }
-
 }
