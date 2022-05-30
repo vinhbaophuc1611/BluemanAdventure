@@ -1,5 +1,5 @@
 # Blueman-Adventure
-![Uploading Blueman - Adventure.png…](Bluemen - Adventrue.png)
+![BluemanAdventure](Blueman - Adventure.png)
 
 
 
