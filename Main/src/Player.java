@@ -40,10 +40,14 @@ public class Player extends Entity {
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 4;
-        worldY = gp.tileSize * 3;
+        worldX = gp.tileSize * 8;
+        worldY = gp.tileSize * 16;
         speed = 3;
         direction = "right"; 
+
+        //PLAYER STATUS.
+        maxLife = 6;
+        life = maxLife;
     }
     public void getPlayerImage() {
 
@@ -96,6 +100,13 @@ public class Player extends Entity {
             //CHECK NPC COLLISION
             int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
             interactNPC(npcIndex);
+
+            //CHECK MONSTER COLLISION
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            interactNPC(monsterIndex);
+
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
 
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if(collision == false) {

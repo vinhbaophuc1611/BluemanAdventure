@@ -20,7 +20,7 @@ public class TileManager {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("GenerateWorld.txt");
+        loadMap("JingleJungle.txt");
     }
 
     public void getTileImage() {
@@ -72,20 +72,16 @@ public class TileManager {
                     col++;
 
                 }
-
                 if(col == gp.maxWorldCol) {
                     col = 0; row++;
                 }   
-
             }
             br.close();
 
         } catch(Exception e) {
             e.printStackTrace();
         }
-
     }
-
     public void draw(Graphics2D g2) {
 
         int worldCol = 0;

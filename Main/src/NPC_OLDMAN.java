@@ -56,14 +56,10 @@ public class NPC_OLDMAN extends Entity{
             if(i > 75 && i <= 100){
                 direction = "right";
             }
-
             actionLockCounter = 0;
         }
     }
-
     public void speak(){
-
         super.speak();
-    }
-    
+    }  
 }

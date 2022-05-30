@@ -12,21 +12,23 @@ public class Entity {
     GamePanel gp;
     public int worldX, worldY;
     public int speed;
-
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public String direction;
-
+    public String direction = "right";
     public int spriteCounter = 0;
     public int spriteNum = 1;
-    
-
-    public Rectangle solidArea = new Rectangle(0, 0, 30, 30);
+    public Rectangle solidArea = new Rectangle(0, 0, 48, 30);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collision = false;
     public int actionLockCounter = 0;
     String dialogues[] = new String[20];
     public int dialoguesIndex = 0;
-    
+    public BufferedImage image, image2, image3;
+    public String name;
+    // public boolean collision = false;
+
+    //CHARACTER STATUS
+    public int maxLife;
+    public int life;    
 
     public Entity(GamePanel gp){
         this.gp = gp;
@@ -64,6 +66,8 @@ public class Entity {
         collision = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
+        gp.cChecker.checkEntity(this, gp.npc);
+        gp.cChecker.checkEntity(this, gp.monster);
         gp.cChecker.checkPlayer(this);
 
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
@@ -135,9 +139,7 @@ public class Entity {
                             break;
                     }
                 g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
-
             }
-
     }
 
     public BufferedImage setup(String imagePath){
