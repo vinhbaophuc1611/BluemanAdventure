@@ -6,7 +6,7 @@ public class OBJ_SHIELD_WOOD extends Entity{
         name = "Shield Wood";
         right1 = setup("shield_wood");
         defenseValue = 1;
-        
+        description = "[" + name + "]\nMade by wood.";
     }
     
 }

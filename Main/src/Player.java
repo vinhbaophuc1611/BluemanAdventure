@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 // import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
 
@@ -16,17 +17,16 @@ public class Player extends Entity {
     public final int screenY;
     int standCount = 0;
     int hasKey = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
-
         super (gp);
-
         // this.gp = gp;
         this.keyH = keyH;
-
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);    
-
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 16;
@@ -34,9 +34,9 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 48;
         solidArea.height = 30;
-
         setDefaultValues();
         getPlayerImage();
+        setItems();
     }
 
     public void setDefaultValues() {
@@ -44,7 +44,6 @@ public class Player extends Entity {
         worldY = gp.tileSize * 16;
         speed = 3;
         direction = "right"; 
-
         //PLAYER STATUS.
         level = 1;
         maxLife = 6;
@@ -57,6 +56,12 @@ public class Player extends Entity {
         currentSheild = new OBJ_SHIELD_WOOD(gp);
         attack = getAttack();
         defense = getDefense();
+    }
+
+    public void setItems(){
+        inventory.add(currentWeapon);
+        inventory.add(currentSheild);
+        inventory.add(new OBJ_KEY(gp));
     }
 
     public int getAttack() {

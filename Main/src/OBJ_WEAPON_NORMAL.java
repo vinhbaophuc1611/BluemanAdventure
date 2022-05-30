@@ -8,5 +8,6 @@ public class OBJ_WEAPON_NORMAL extends Entity{
         name = "Normal Sword";
         right1 = setup("sword_normal");
         attackValue = 1;
+        description = "[" + name + "]\nAn old sword.";
     }
 }
