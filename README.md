@@ -1,5 +1,6 @@
 # Blueman-Adventure
-![BluemanAdventure](Blueman - Adventure.png)
+
+![Blueman - Adventure](https://user-images.githubusercontent.com/88697918/170953477-b7044bdd-9bfa-4765-a24d-d232ce9e66d2.png)
 
 
 
