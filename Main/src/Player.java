@@ -32,7 +32,7 @@ public class Player extends Entity {
         solidArea.y = 16;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 30;
+        solidArea.width = 48;
         solidArea.height = 30;
 
         setDefaultValues();
@@ -46,9 +46,26 @@ public class Player extends Entity {
         direction = "right"; 
 
         //PLAYER STATUS.
+        level = 1;
         maxLife = 6;
         life = maxLife;
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        currentWeapon = new OBJ_WEAPON_NORMAL(gp);
+        currentSheild = new OBJ_SHIELD_WOOD(gp);
+        attack = getAttack();
+        defense = getDefense();
     }
+
+    public int getAttack() {
+        return attack = strength * currentWeapon.attackValue;
+    }
+    public int getDefense() {
+        return defense = dexterity * currentSheild.defenseValue;
+    }
+
     public void getPlayerImage() {
 
         up1 = setup("boy_up_1");
@@ -103,7 +120,7 @@ public class Player extends Entity {
 
             //CHECK MONSTER COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            interactNPC(monsterIndex);
+            contactMonster(monsterIndex);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -111,15 +128,12 @@ public class Player extends Entity {
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if(collision == false) {
                 switch(direction) {
-        
                     case "up": worldY -= speed; break;
                     case "down": worldY += speed; break;
                     case "left": worldX -= speed;break;
                     case "right": worldX += speed; break;
-        
                 }
             }
-    
             spriteCounter++;
             if(spriteCounter > 12){
                 if(spriteNum == 1){
@@ -167,6 +181,12 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
             gp.keyH.enterPressed = false;
+        }
+    }
+    public void contactMonster(int i){
+
+        if(i != 999){
+
         }
     }
 

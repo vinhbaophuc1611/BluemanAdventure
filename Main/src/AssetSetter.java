@@ -56,5 +56,9 @@ public class AssetSetter{
         gp.monster[0] = new MON(gp);
         gp.monster[0].worldX = gp.tileSize * 30;
         gp.monster[0].worldY = gp.tileSize * 18;
+
+        gp.monster[1] = new MON(gp);
+        gp.monster[1].worldX = gp.tileSize * 30;
+        gp.monster[1].worldY = gp.tileSize * 19;
     }
 }
