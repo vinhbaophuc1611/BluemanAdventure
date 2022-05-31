@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 // import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.Rectangle;
 import java.awt.Graphics2D;
 
@@ -16,27 +17,26 @@ public class Player extends Entity {
     public final int screenY;
     int standCount = 0;
     int hasKey = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
-
         super (gp);
-
         // this.gp = gp;
         this.keyH = keyH;
-
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);    
-
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 16;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 30;
+        solidArea.width = 48;
         solidArea.height = 30;
-
         setDefaultValues();
         getPlayerImage();
+        setItems();
     }
 
     public void setDefaultValues() {
@@ -44,11 +44,33 @@ public class Player extends Entity {
         worldY = gp.tileSize * 16;
         speed = 3;
         direction = "right"; 
-
         //PLAYER STATUS.
+        level = 1;
         maxLife = 6;
         life = maxLife;
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        currentWeapon = new OBJ_WEAPON_NORMAL(gp);
+        currentSheild = new OBJ_SHIELD_WOOD(gp);
+        attack = getAttack();
+        defense = getDefense();
     }
+
+    public void setItems(){
+        inventory.add(currentWeapon);
+        inventory.add(currentSheild);
+        inventory.add(new OBJ_KEY(gp));
+    }
+
+    public int getAttack() {
+        return attack = strength * currentWeapon.attackValue;
+    }
+    public int getDefense() {
+        return defense = dexterity * currentSheild.defenseValue;
+    }
+
     public void getPlayerImage() {
 
         up1 = setup("boy_up_1");
@@ -103,7 +125,7 @@ public class Player extends Entity {
 
             //CHECK MONSTER COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            interactNPC(monsterIndex);
+            contactMonster(monsterIndex);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -111,15 +133,12 @@ public class Player extends Entity {
             // IF COLLISION IS FALSE, PLAYER CAN MOVE
             if(collision == false) {
                 switch(direction) {
-        
                     case "up": worldY -= speed; break;
                     case "down": worldY += speed; break;
                     case "left": worldX -= speed;break;
                     case "right": worldX += speed; break;
-        
                 }
             }
-    
             spriteCounter++;
             if(spriteCounter > 12){
                 if(spriteNum == 1){
@@ -167,6 +186,12 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }
             gp.keyH.enterPressed = false;
+        }
+    }
+    public void contactMonster(int i){
+
+        if(i != 999){
+
         }
     }
 
