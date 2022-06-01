@@ -11,18 +11,15 @@ import java.awt.event.KeyEvent;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, monsterPressed;
     boolean checkDrawTime = false;
-
     public KeyHandler(GamePanel gp){
         this.gp = gp;
     }
-
     @Override
     public void keyTyped(KeyEvent e) {
 
     }
-
     @Override
     public void keyPressed(KeyEvent e) {
 
@@ -32,7 +29,7 @@ public class KeyHandler implements KeyListener {
             titleState(code);
         }
         //PLAY STATE
-        else if(gp.gameState == gp.playState){
+        if(gp.gameState == gp.playState){
             playState(code);
         }
         //PAUSE STATE
@@ -43,14 +40,16 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.dialogueState){
             dialogueState(code);
         }
+        //MONSTER STATE
+        else if(gp.gameState == gp.dialogueMonsterState){
+            dialogueMonsterState(code);
+        }
         //CHARACTER STATE
         else if(gp.gameState == gp.characterState){
             characterState(code);
         }
     }
-
     public void titleState(int code){
-
         if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             gp.ui.commandNum--;
             if(gp.ui.commandNum < 0){
@@ -76,7 +75,6 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void playState(int code){
-
         if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = true;
         }
@@ -98,6 +96,9 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_E){
             enterPressed = true;
         }
+        if(code == KeyEvent.VK_R){
+            monsterPressed = true;
+        }
         //DEBUG 
         if(code == KeyEvent.VK_T){
             if(checkDrawTime == false) {
@@ -108,19 +109,21 @@ public class KeyHandler implements KeyListener {
         }
     }
     public void pauseState(int code){
-
         if(code == KeyEvent.VK_P || code == KeyEvent.VK_ESCAPE){
             gp.gameState = gp.playState;
         }
     }
     public void dialogueState(int code){
-
+        if(code == KeyEvent.VK_ENTER){
+            gp.gameState = gp.playState;
+        }
+    }
+    public void dialogueMonsterState(int code){
         if(code == KeyEvent.VK_ENTER){
             gp.gameState = gp.playState;
         }
     }
     public void characterState(int code){
-
         if(code == KeyEvent.VK_C){
             gp.gameState = gp.playState;
         }
@@ -145,12 +148,10 @@ public class KeyHandler implements KeyListener {
             }
         }
     }
-
     @Override
     public void keyReleased(KeyEvent e) {
 
         int code = e.getKeyCode();
-
         if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             upPressed = false;
         }
@@ -163,8 +164,6 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
-
-
     }
 
 }

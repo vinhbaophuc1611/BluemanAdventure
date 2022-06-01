@@ -12,7 +12,7 @@ import java.awt.*;
 public class UI {
     
     GamePanel gp;
-    Graphics2D g2;
+    // Font arial_40, arial_80B;
     Font maruMFont, purisa;
     BufferedImage keyImage;
     BufferedImage heart_half, heart_full, heart_blank;
@@ -20,14 +20,20 @@ public class UI {
     public String message = "";
     int messageCounter = 0;
     public String currentDialogue = "";
+    public String currentMonsterDialogue = "";
     public int commandNum = 0;
     public int slotCol = 0;
     public int slotRow = 0;
+
     double playTime ;
     DecimalFormat DF = new DecimalFormat("#0");
+    private Graphics2D g2;
 
     public UI(GamePanel gp){
         this.gp = gp;
+
+        // arial_40 = new Font("Cambria", Font.PLAIN, 40);
+        // arial_80B = new Font("Arial", Font.BOLD, 80);
         try{
             InputStream is = getClass().getResourceAsStream("x12y16pxMaruMonica.ttf");
             maruMFont = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -101,6 +107,10 @@ public class UI {
             drawPlayerLife();
             drawDialogueScreen();
         }
+        //MONSTER STATE
+        if(gp.gameState == gp.dialogueMonsterState){
+            drawDialogueMonsterScreen();
+        }
         //CHARACTER STATE
         if(gp.gameState == gp.characterState){
             drawCharacterState();
@@ -133,7 +143,6 @@ public class UI {
             x += gp.tileSize;
         }
     }
-
     public void drawTitlesScreen(){
 
         g2.setColor(new Color(255, 255, 255));
@@ -183,14 +192,29 @@ public class UI {
             g2.drawString(">", x - gp.tileSize, y);
         }
     }
-
     public void drawPauseScreen(){
+
         String text = "PAUSE";
         int x = getXforCenteredText(text);
         int y = gp.screenHeight/2;
-        g2.drawString(text, x, y);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 42F));
+        g2.drawString(text, x - gp.tileSize, y);
     }
+    public void drawDialogueMonsterScreen(){
+        int x = gp.tileSize * 2;
+        int y = gp.tileSize / 2;
+        int width = gp.screenWidth - (gp.tileSize * 4);
+        int height = gp.tileSize * 4;
+        drawSub(x, y, width, height);
+        g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 23F));
+        x += gp.tileSize;
+        y += gp.tileSize;
 
+        for(String line: currentMonsterDialogue.split("\n")){
+            g2.drawString(line, x, y);
+            y += 40;
+        }
+    }
     public void drawDialogueScreen(){
 
         //DRAW ON WINDOW
@@ -199,7 +223,6 @@ public class UI {
         int width = gp.screenWidth - (gp.tileSize * 4);
         int height = gp.tileSize * 4;
         drawSub(x, y, width, height);
-
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 23F));
         x += gp.tileSize;
         y += gp.tileSize;
@@ -209,120 +232,76 @@ public class UI {
             y += 40;
         }
     }
-
     public void drawCharacterState(){
-
-        //CREATE A FRAME
-        final int frameX = gp.tileSize / 2;
-        final int frameY = gp.tileSize; 
+        //CREATE FRAME
+        final int frameX = gp.tileSize - 40;
+        final int frameY = gp.tileSize;
         final int frameWidth = gp.tileSize * 7;
         final int frameHeight = gp.tileSize * 10;
         drawSub(frameX, frameY, frameWidth, frameHeight);
-
-        //TEST
+        //TEXT
         g2.setColor(Color.white);
         g2.setFont(g2.getFont().deriveFont(32F));
-
         int textX = frameX + 20;
         int textY = frameY + gp.tileSize;
-        final int lineHeight = 36;
-
+        final int lineHeight =  50;
         //NAMES
         g2.drawString("Level", textX, textY);
-        textY += lineHeight;
+        textY += lineHeight; 
         g2.drawString("Life", textX, textY);
-        textY += lineHeight;
+        textY += lineHeight; 
         g2.drawString("Strength", textX, textY);
-        textY += lineHeight;
+        textY += lineHeight; 
         g2.drawString("Dexterity", textX, textY);
-        textY += lineHeight;
-        g2.drawString("Attack", textX, textY);
-        textY += lineHeight;
-        g2.drawString("Defense", textX, textY);
-        textY += lineHeight;
-        g2.drawString("Exp", textX, textY);
-        textY += lineHeight;
-        g2.drawString("Next Level", textX, textY);
-        textY += lineHeight;
-        g2.drawString("Coin", textX, textY);
-        textY += lineHeight + 20;
+        textY += lineHeight + 20; 
         g2.drawString("Weapon", textX, textY);
-        textY += lineHeight + 15;
+        textY += lineHeight;
         g2.drawString("Shield", textX, textY);
         textY += lineHeight;
-
         //VALUES
         int tailX = (frameX + frameWidth) - 30;
         //RESET TEXTY
         textY = frameY + gp.tileSize;
         String value;
-
+        //LEVEL
         value = String.valueOf(gp.player.level);
-        textX = getXforToRightText(value, tailX);
+        textX = getXforText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;
-
+        //LIFE
         value = String.valueOf(gp.player.life + "/" + gp.player.maxLife);
-        textX = getXforToRightText(value, tailX);
+        textX = getXforText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;
-
+        //STRENGTH
         value = String.valueOf(gp.player.strength);
-        textX = getXforToRightText(value, tailX);
+        textX = getXforText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;
-
+        //DEXTERITY
         value = String.valueOf(gp.player.dexterity);
-        textX = getXforToRightText(value, tailX);
+        textX = getXforText(value, tailX);
         g2.drawString(value, textX, textY);
         textY += lineHeight;
-
-        value = String.valueOf(gp.player.attack);
-        textX = getXforToRightText(value, tailX);
-        g2.drawString(value, textX, textY);
+        //WEAPON
+        g2.drawImage(gp.player.currentWeapon.right1, tailX - gp.tileSize, textY - 16, null);
         textY += lineHeight;
-
-        value = String.valueOf(gp.player.defense);
-        textX = getXforToRightText(value, tailX);
-        g2.drawString(value, textX, textY);
+        g2.drawImage(gp.player.currentShield.right1, tailX - gp.tileSize, textY - 16, null);
         textY += lineHeight;
-
-        value = String.valueOf(gp.player.exp);
-        textX = getXforToRightText(value, tailX);
-        g2.drawString(value, textX, textY);
-        textY += lineHeight;
-
-        value = String.valueOf(gp.player.nextLevelExp);
-        textX = getXforToRightText(value, tailX);
-        g2.drawString(value, textX, textY);
-        textY += lineHeight;
-
-        value = String.valueOf(gp.player.coin);
-        textX = getXforToRightText(value, tailX);
-        g2.drawString(value, textX, textY);
-        textY += lineHeight;
-
-        g2.drawImage(gp.player.currentWeapon.right1, tailX - gp.tileSize, textY - 14, null);
-        textY += gp.tileSize;
-        g2.drawImage(gp.player.currentSheild.right1, tailX - gp.tileSize, textY - 14, null);
-        textY += gp.tileSize;
     }
-
     public void drawInventory(){
         //FRAME
-        int frameX = gp.tileSize * 9;
+        int frameX = (int) (gp.tileSize * 9.8);
         int frameY = gp.tileSize;
         int frameWidth = gp.tileSize * 6;
         int frameHeight = gp.tileSize * 5;
         drawSub(frameX, frameY, frameWidth, frameHeight);
-
         //SLOT
         final int slotXstart = frameX + 20;
         final int slotYstart = frameY + 20;
         int slotX = slotXstart;
-        int slotY = slotYstart;
+        int slotY = slotYstart; 
         int slotSize = gp.tileSize + 3;
-
         //DRAW PLAYER'S ITEMS
         for(int i = 0; i < gp.player.inventory.size(); i++){
             g2.drawImage(gp.player.inventory.get(i).right1, slotX, slotY, null);
@@ -332,62 +311,53 @@ public class UI {
                 slotY += slotSize;
             }
         }
-        
         //CURSOR
         int cursorX = slotXstart + (slotSize * slotCol);
         int cursorY = slotYstart + (slotSize * slotRow);
         int cursorWidth = gp.tileSize;
         int cursorHeight = gp.tileSize;
-
         //DRAW CURSOR
         g2.setColor(Color.white);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect(cursorX, cursorY, cursorWidth, cursorHeight, 10, 10);
-
-        //DESCRIPTION FRAME
+        //DRAW DESCRIPTIONS
         int dFrameX = frameX;
         int dFrameY = frameY + frameHeight;
         int dFrameWidth = frameWidth;
         int dFrameHeight = gp.tileSize * 3;
-
-        //DRAW DESCRIPTION TEXT
+        drawSub(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
+        //DRAW SCRIPT
         int textX = dFrameX + 20;
         int textY = dFrameY + gp.tileSize;
         g2.setFont(g2.getFont().deriveFont(25F));
-        int itemIndex = getItemIndexOnSlot();
+        int itemIndex = getItemToSLot();
         if(itemIndex < gp.player.inventory.size()){
-            drawSub(dFrameX, dFrameY, dFrameWidth, dFrameHeight);
-            for(String line: gp.player.inventory.get(itemIndex).description.split("\n")){
+            for(String line: gp.player.inventory.get(itemIndex).description.split("\n")){ 
                 g2.drawString(line, textX, textY);
                 textY += 32;
             }
         }
     }
-
-    public int getItemIndexOnSlot(){
+    public int getItemToSLot(){
         int itemIndex = slotCol + (slotRow * 5);
         return itemIndex;
     }
-    
     public void drawSub(int x, int y, int width, int height){
-
         Color c = new Color(0, 0, 0, 210);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
-
         c = new Color(255, 255, 255);
         g2.setColor(c);
         g2.setStroke(new BasicStroke(5));
         g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
-
     }
-
     public int getXforCenteredText(String text){
+
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth/2 - length/2;
         return x;
     }
-    public int getXforToRightText(String text, int tailX){
+    public int getXforText(String text, int tailX){
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = tailX - length;
         return x;
