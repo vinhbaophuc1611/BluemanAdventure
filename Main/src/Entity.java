@@ -11,7 +11,6 @@ public class Entity {
    
     GamePanel gp;
     public int worldX, worldY;
-    public int speed;
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
     public String direction = "right";
     public int spriteCounter = 0;
@@ -21,29 +20,25 @@ public class Entity {
     public boolean collision = false;
     public int actionLockCounter = 0;
     String dialogues[] = new String[20];
+    String dialoguesMonster[] = new String[20];
     public int dialoguesIndex = 0;
+    public int dialoguesMonsterIndex = 0;
     public BufferedImage image, image2, image3;
-    public String name;
-    // public boolean collision = false;
-
     //CHARACTER STATUS
+    public int type = 0;
+    public String name;
+    public int speed;
     public int maxLife;
-    public int life;  
-    
-    //CHARACTER ATTRIBUTE
-    public int type;
+    public int life;   
     public int level;
     public int strength;
     public int dexterity;
     public int attack;
     public int defense;
-    public int exp;
-    public int nextLevelExp;
-    public int coin;
     public Entity currentWeapon;
-    public Entity currentSheild;
-
-    //ITEM ATTRIBUTE
+    public Entity currentShield;
+    public Entity currentKey;
+    //ITEMS ATTRIBUTES
     public int attackValue;
     public int defenseValue;
     public String description = "";
@@ -55,13 +50,32 @@ public class Entity {
     public void setAction(){}
 
     public void speak(){
-
         if(dialogues[dialoguesIndex] == null){
             dialoguesIndex = 0;
         }
         gp.ui.currentDialogue = dialogues[dialoguesIndex];
         dialoguesIndex++;
-
+        switch(gp.player.direction){
+        case "up":
+            direction = "down";
+            break;
+        case "down":
+            direction = "up";
+            break;
+        case "left":
+            direction = "right";
+            break;
+        case "right":
+            direction = "left";
+            break;
+        }
+    }
+    public void monsterSpeak(){
+        if(dialoguesMonster[dialoguesMonsterIndex] == null){
+            dialoguesMonsterIndex = 0;
+        }
+        gp.ui.currentMonsterDialogue = dialoguesMonster[dialoguesMonsterIndex];
+        dialoguesMonsterIndex++;
         switch(gp.player.direction){
         case "up":
             direction = "down";
@@ -80,7 +94,6 @@ public class Entity {
     public void update(){
 
         setAction();
-
         collision = false;
         gp.cChecker.checkTile(this);
         gp.cChecker.checkObject(this, false);
@@ -91,7 +104,6 @@ public class Entity {
         // IF COLLISION IS FALSE, PLAYER CAN MOVE
         if(collision == false) {
             switch(direction) {
-    
             case "up": worldY -= speed; break;
             case "down": worldY += speed; break;
             case "left": worldX -= speed;break;

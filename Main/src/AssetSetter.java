@@ -1,34 +1,50 @@
 public class AssetSetter{
     GamePanel gp;
-
+    int i = 0;
     public AssetSetter(GamePanel gp){
         this.gp = gp;
     }
     public void setobject(){
-        gp.obj[0] = new OBJ_KEY(gp);
-        gp.obj[0].worldX = 38 * gp.tileSize;
-        gp.obj[0].worldY = 45 * gp.tileSize;
+        gp.obj[i] = new OBJ_KEY(gp);
+        gp.obj[i].worldX = 38 * gp.tileSize;
+        gp.obj[i].worldY = 45 * gp.tileSize;
+        i++;
 
-        gp.obj[1] = new OBJ_DOOR(gp);
-        gp.obj[1].worldX = 38 * gp.tileSize;
-        gp.obj[1].worldY = 15 * gp.tileSize;
+        gp.obj[i] = new OBJ_DOOR(gp);
+        gp.obj[i].worldX = 38 * gp.tileSize;
+        gp.obj[i].worldY = 15 * gp.tileSize;
+        i++;
 
-        gp.obj[2] = new OBJ_DOOR(gp);
-        gp.obj[2].worldX = 9 * gp.tileSize;
-        gp.obj[2].worldY = 10 * gp.tileSize;
+        gp.obj[i] = new OBJ_DOOR(gp);
+        gp.obj[i].worldX = 9 * gp.tileSize;
+        gp.obj[i].worldY = 10 * gp.tileSize;
+        i++;
 
-        gp.obj[3] = new OBJ_KEY(gp);
-        gp.obj[3].worldX = 47 * gp.tileSize;
-        gp.obj[3].worldY = 25 * gp.tileSize;
+        gp.obj[i] = new OBJ_KEY(gp);
+        gp.obj[i].worldX = 17 * gp.tileSize;
+        gp.obj[i].worldY = 16 * gp.tileSize;
+        i++;
 
+        gp.obj[i] = new OBJ_KEY(gp);
+        gp.obj[i].worldX = 17 * gp.tileSize;
+        gp.obj[i].worldY = 17 * gp.tileSize;
+        i++;
+
+        gp.obj[i] = new OBJ_KEY(gp);
+        gp.obj[i].worldX = 17 * gp.tileSize;
+        gp.obj[i].worldY = 18 * gp.tileSize;
+        i++;
+
+        gp.obj[i] = new OBJ_KEY(gp);
+        gp.obj[i].worldX = 17 * gp.tileSize;
+        gp.obj[i].worldY = 19 * gp.tileSize;
+        i++;
         // gp.obj[4] = new OBJ_DOOR(gp);
         // gp.obj[4].worldX = 23 * gp.tileSize;
         // gp.obj[4].worldY = 36 * gp.tileSize;
-
         // gp.obj[5] = new OBJ_KEY(gp);
         // gp.obj[5].worldX = 38 * gp.tileSize;
         // gp.obj[5].worldY = 13 * gp.tileSize;
-
     } 
 
     public void setNPC(){
@@ -56,9 +72,5 @@ public class AssetSetter{
         gp.monster[0] = new MON(gp);
         gp.monster[0].worldX = gp.tileSize * 30;
         gp.monster[0].worldY = gp.tileSize * 18;
-
-        gp.monster[1] = new MON(gp);
-        gp.monster[1].worldX = gp.tileSize * 30;
-        gp.monster[1].worldY = gp.tileSize * 19;
     }
 }

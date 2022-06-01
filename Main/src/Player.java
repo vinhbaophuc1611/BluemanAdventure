@@ -15,13 +15,13 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    int standCount = 0;
-    int hasKey = 0;
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
-
+    int standCount = 0;
+    int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
+
         super (gp);
         // this.gp = gp;
         this.keyH = keyH;
@@ -32,17 +32,18 @@ public class Player extends Entity {
         solidArea.y = 16;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
-        solidArea.width = 48;
+        solidArea.width = 30;
         solidArea.height = 30;
+
         setDefaultValues();
         getPlayerImage();
         setItems();
     }
 
     public void setDefaultValues() {
-        worldX = gp.tileSize * 8;
-        worldY = gp.tileSize * 16;
-        speed = 3;
+        worldX = gp.tileSize * 42;
+        worldY = gp.tileSize * 43;
+        speed = 4;
         direction = "right"; 
         //PLAYER STATUS.
         level = 1;
@@ -50,27 +51,21 @@ public class Player extends Entity {
         life = maxLife;
         strength = 1;
         dexterity = 1;
-        exp = 0;
-        nextLevelExp = 5;
         currentWeapon = new OBJ_WEAPON_NORMAL(gp);
-        currentSheild = new OBJ_SHIELD_WOOD(gp);
-        attack = getAttack();
-        defense = getDefense();
+        currentShield = new OBJ_SHIELD_WOOD(gp);
+        currentKey = new OBJ_KEY(gp);
     }
-
     public void setItems(){
         inventory.add(currentWeapon);
-        inventory.add(currentSheild);
-        inventory.add(new OBJ_KEY(gp));
+        inventory.add(currentShield);
+        inventory.add(currentKey);
     }
-
-    public int getAttack() {
+    public int getAttack(){
         return attack = strength * currentWeapon.attackValue;
     }
-    public int getDefense() {
-        return defense = dexterity * currentSheild.defenseValue;
+    public int getDefense(){
+        return defense = dexterity * currentWeapon.defenseValue;
     }
-
     public void getPlayerImage() {
 
         up1 = setup("boy_up_1");
@@ -125,7 +120,7 @@ public class Player extends Entity {
 
             //CHECK MONSTER COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
-            contactMonster(monsterIndex);
+            interactMonster(monsterIndex);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -154,18 +149,54 @@ public class Player extends Entity {
 
     public void pickUpObject(int i){
         if(i != 999){
+            // String text;
+            // if(inventory.size() != maxInventorySize){
+            //     inventory.add(currentKey);
+            //     text = "Got a " + gp.obj[i].name + "!";
+            // }else{
+            //     text = "You cannot carry anymore";
+            // }
+            // gp.ui.showMessage(text);
+            // gp.obj[i] = null;
             String objectName = gp.obj[i].name;
-
+            // if(inventory.size() != maxInventorySize){
+            //     inventory.add(currentKey);
+            //     objectName = "Got a " + gp.obj[i].name + "!";
+            //     switch(objectName){
+            //         case "Key":
+            //             hasKey++;
+            //             gp.obj[i] = null;
+            //             // gp.ui.showMessage("objectName");
+            //             break;
+            //         case "Door":
+            //             if(hasKey > 0){
+            //                 gp.obj[i] = null;
+            //                 hasKey--;
+            //                 gp.ui.showMessage("You opened the door!");
+            //             }
+            //             else {
+            //                 gp.ui.showMessage("You need a key to open!");
+            //             }
+            //             System.out.println("Key: " + hasKey);
+            //             break;    
+            //         }
+            // }else{
+            //     objectName = "You cannot carry anymore!";
+            // }
+            // gp.ui.showMessage(objectName);
+            // gp.obj[i] = null;
             switch(objectName){
                 case "Key":
-                    hasKey++;
-                    gp.obj[i] = null;
-                    gp.ui.showMessage("You got the key!");
-                    break;
+                hasKey++;
+                inventory.add(currentKey);
+                gp.obj[i] = null;
+                gp.ui.showMessage("You got a key!");
+                break;
                 case "Door":
                     if(hasKey > 0){
                         gp.obj[i] = null;
                         hasKey--;
+                        inventory.remove(currentKey);
                         gp.ui.showMessage("You opened the door!");
                     }
                     else {
@@ -176,9 +207,16 @@ public class Player extends Entity {
             }
         }
     }
-
+    public void interactMonster(int i){
+        if(i != 999){
+            if(gp.keyH.monsterPressed == true){
+                gp.gameState = gp.dialogueMonsterState;
+                gp.monster[i].monsterSpeak();
+            }
+            gp.keyH.monsterPressed = false;
+        }
+    }
     public void interactNPC(int i){
-
         if(i != 999){
             //System.out.println("You are hitting an NPC!");
             if(gp.keyH.enterPressed == true){
@@ -188,13 +226,7 @@ public class Player extends Entity {
             gp.keyH.enterPressed = false;
         }
     }
-    public void contactMonster(int i){
-
-        if(i != 999){
-
-        }
-    }
-
+    
     public void draw(Graphics2D g2) {
         // g2.setColor(Color.white);
         // g2.fillRect(x, y, gp.tileSize, gp.tileSize);

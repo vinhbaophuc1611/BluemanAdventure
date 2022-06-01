@@ -21,9 +21,12 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
+    // final int screenWidth = 1920; // 1920 pixels
+    // final int screenHeight = 1080; // 1080 pixels
+
     // WORLD SETTINGS
-    public final int maxWorldCol = 62;
-    public final int maxWorldRow = 62;
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -53,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gamePause = 2;
     public final int dialogueState = 3;
     public final int characterState = 4;
+    public final int dialogueMonsterState = 5;
 
     public GamePanel() {
         
@@ -73,8 +77,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void startGameThread() {
+
         gameThread = new Thread(this);
         gameThread.start();
+
     }
 
     // SLEEP METHOD
@@ -121,8 +127,8 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
-        else if(gameState == gamePause){
-            //FIX LATER 
+        if(gameState == gamePause){
+            //WAITING 
         }
     }
 
@@ -137,9 +143,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
         //TITLE SCREEN
         if(gameState == titleState){
-            ui.draw(g2);
-        }
-        if(gameState == gamePause){
             ui.draw(g2);
         }
         //OTHERS

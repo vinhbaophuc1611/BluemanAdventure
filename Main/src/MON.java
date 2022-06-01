@@ -12,11 +12,12 @@ public class MON extends Entity {
 
         solidArea.x = 3;
         solidArea.y = 18;
-        solidArea.width = 48;
+        solidArea.width = 30;
         solidArea.height = 30;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
         getImage();
+        setMonsterDialog();
     }
 
     public void getImage(){
@@ -30,6 +31,10 @@ public class MON extends Entity {
         right1 = setup("greenslime_down_1");
         right2 = setup("greenslime_down_2");
 
+    }
+    public void setMonsterDialog(){
+        dialoguesMonster[0] = "Hi";
+        dialoguesMonster[1] = "How are you?";
     }
     public void setAction(){
 
@@ -50,9 +55,11 @@ public class MON extends Entity {
             if(i > 75 && i <= 100){
                 direction = "right";
             }
-
             actionLockCounter = 0;
         }
     }
+    public void monsterSpeak(){
+        super.monsterSpeak();
+    }  
     
 }
