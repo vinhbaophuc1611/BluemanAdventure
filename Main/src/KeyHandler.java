@@ -11,18 +11,16 @@ import java.awt.event.KeyEvent;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, monsterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, monsterPressed, shotPressed;
     boolean checkDrawTime = false;
     public KeyHandler(GamePanel gp){
         this.gp = gp;
     }
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
     @Override
     public void keyPressed(KeyEvent e) {
-
         int code = e.getKeyCode();
         //TITLE STATE
         if(gp.gameState == gp.titleState){
@@ -99,6 +97,9 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_R){
             monsterPressed = true;
         }
+        if(code == KeyEvent.VK_F){
+            shotPressed = true;
+        }
         //DEBUG 
         if(code == KeyEvent.VK_T){
             if(checkDrawTime == false) {
@@ -164,6 +165,8 @@ public class KeyHandler implements KeyListener {
         if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
             rightPressed = false;
         }
+        if(code == KeyEvent.VK_F){
+            shotPressed = false;
+        }
     }
-
 }

@@ -4,12 +4,11 @@ public class MON extends Entity {
 
     public MON(GamePanel gp) {
         super(gp);
-
+        type = 2;
         name = "Monster";
         speed = 1;
         maxLife = 4;
         life = maxLife;
-
         solidArea.x = 3;
         solidArea.y = 18;
         solidArea.width = 30;
@@ -19,25 +18,21 @@ public class MON extends Entity {
         getImage();
         setMonsterDialog();
     }
-
     public void getImage(){
-
-        up1 = setup("greenslime_down_1");
-        up2 = setup("greenslime_down_2");
-        down1 = setup("greenslime_down_1");
-        down2 = setup("greenslime_down_2");
-        left1 = setup("greenslime_down_1");
-        left2 = setup("greenslime_down_2");
-        right1 = setup("greenslime_down_1");
-        right2 = setup("greenslime_down_2");
-
+        up1 = setup("mon1_up_1", gp.tileSize, gp.tileSize);
+        up2 = setup("mon1_up_2", gp.tileSize, gp.tileSize);
+        down1 = setup("mon1_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("mon1_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("mon1_left_1", gp.tileSize, gp.tileSize);
+        left2 = setup("mon1_left_2", gp.tileSize, gp.tileSize);
+        right1 = setup("mon1_right_1", gp.tileSize, gp.tileSize);
+        right2 = setup("mon1_right_2", gp.tileSize, gp.tileSize);
     }
     public void setMonsterDialog(){
         dialoguesMonster[0] = "Hi";
         dialoguesMonster[1] = "How are you?";
     }
     public void setAction(){
-
         actionLockCounter++;
         if(actionLockCounter == 120){
             Random random = new Random();
@@ -61,5 +56,5 @@ public class MON extends Entity {
     public void monsterSpeak(){
         super.monsterSpeak();
     }  
-    
+
 }
