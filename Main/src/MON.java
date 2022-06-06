@@ -7,7 +7,7 @@ public class MON extends Entity {
         type = 2;
         name = "Monster";
         speed = 1;
-        maxLife = 4;
+        maxLife = 10;
         life = maxLife;
         solidArea.x = 3;
         solidArea.y = 18;

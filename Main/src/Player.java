@@ -54,7 +54,7 @@ public class Player extends Entity {
         inventory.add(currentShield);
     }
     public int getAttack(){
-        return attack = strength * currentWeapon.attackValue;
+        return attack = strength;
     }
     public int getDefense(){
         return defense = dexterity * currentWeapon.defenseValue;
@@ -111,7 +111,7 @@ public class Player extends Entity {
             //CHECK MONSTER COLLISION
             int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
             interactMonster(monsterIndex);
-            damageMonster(monsterIndex);
+            damageMonster(monsterIndex, attack);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -188,13 +188,21 @@ public class Player extends Entity {
             }
         }
     }
-    public void damageMonster(int i){
+    public void damageMonster(int i, int attack){
         if(i != 999){
             if(gp.monster[gp.currentMap][i].invincible == false){
-                gp.monster[gp.currentMap][i].life -= 1;
+                int damage = attack - gp.monster[gp.currentMap][i].defense;
+                if(damage < 0){
+                    damage = 0;
+                }
+                gp.monster[gp.currentMap][i].life -= damage;
+                gp.ui.showMessage(damage + "damage!");
+                // gp.monster[gp.currentMap][i].life -= 1;
                 gp.monster[gp.currentMap][i].invincible = true;
+                
                 if(gp.monster[gp.currentMap][i].life <= 0){
                     gp.monster[gp.currentMap][i].dying = true;
+                    gp.ui.showMessage("Killed the " + gp.monster[gp.currentMap][i].name + "!");
                 }
             }
         }

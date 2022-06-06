@@ -2,6 +2,7 @@ public class Projectile extends Entity {
     Entity user;
     public Projectile(GamePanel gp){
         super(gp);
+        // attackValue = 1;
     }
     public void set(int worldX, int worldY, String direction, boolean alive, Entity user){
         this.worldX = worldX;
@@ -12,6 +13,16 @@ public class Projectile extends Entity {
         this.life = maxLife;
     }
     public void update(){
+        if(user == gp.player){
+            int monsterIndex = gp.cChecker.checkEntity(this, gp.monster);
+            if(monsterIndex != 999){
+                gp.player.damageMonster(monsterIndex, attack);
+                alive = false;
+            }
+        }
+        if(user != gp.player){
+
+        }
         switch(direction){
             case "up": worldY -= speed; break;
             case "down": worldY += speed; break;
