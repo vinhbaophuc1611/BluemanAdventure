@@ -14,22 +14,17 @@ public class NPC_OLDMAN extends Entity{
         getImage();
         setDialogue();
     }
-
     public void getImage() {
-
-        up1 = setup("oldman_up_1");
-        up2 = setup("oldman_up_2");
-        down1 = setup("oldman_down_1");
-        down2 = setup("oldman_down_2");
-        left1 = setup("oldman_left_1");
-        left2 = setup("oldman_left_2");
-        right1 = setup("oldman_right_1");
-        right2 = setup("oldman_right_2");
-
+        up1 = setup("npc_oldman_up_1", gp.tileSize, gp.tileSize);
+        up2 = setup("npc_oldman_up_2", gp.tileSize, gp.tileSize);
+        down1 = setup("npc_oldman_down_1", gp.tileSize, gp.tileSize);
+        down2 = setup("npc_oldman_down_2", gp.tileSize, gp.tileSize);
+        left1 = setup("npc_oldman_left_1", gp.tileSize, gp.tileSize);
+        left2 = setup("npc_oldman_left_2", gp.tileSize, gp.tileSize);
+        right1 = setup("npc_oldman_right_1", gp.tileSize, gp.tileSize);
+        right2 = setup("npc_oldman_right_2", gp.tileSize, gp.tileSize);
     }
-
     public void setDialogue(){
-
         dialogues[0] = "Hello, world!";
         dialogues[1] = "Arcade Fire's 'The Suburbs' won \nthe Album of the Year \naward in the 2011 Grammys.";
         dialogues[2] = "The cover of The Beatles album \n'Abbey' featured a Volkswagen \nBeetle in the background.";
@@ -37,9 +32,8 @@ public class NPC_OLDMAN extends Entity{
     }
 
     public void setAction(){
-
         actionLockCounter++;
-        if(actionLockCounter == 120){
+        if(actionLockCounter == 90){
             Random random = new Random();
             //PICK UP A NUMBER FROM 1 - 100 or 0 - 99
             int i = random.nextInt(100) + 1; 

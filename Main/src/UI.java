@@ -24,14 +24,12 @@ public class UI {
     public int commandNum = 0;
     public int slotCol = 0;
     public int slotRow = 0;
-
     double playTime ;
     DecimalFormat DF = new DecimalFormat("#0");
     private Graphics2D g2;
 
     public UI(GamePanel gp){
         this.gp = gp;
-
         // arial_40 = new Font("Cambria", Font.PLAIN, 40);
         // arial_80B = new Font("Arial", Font.BOLD, 80);
         try{
@@ -44,24 +42,19 @@ public class UI {
         }catch(IOException e){
             e.printStackTrace();
         }
-        
         OBJ_KEY key = new OBJ_KEY(gp);
         keyImage = key.image;
-
         //CREATE HUD
         Entity Heart = new OBJ_HEART(gp);
         heart_full = Heart.image;
         heart_half = Heart.image2;
         heart_blank = Heart.image3;
     }
-
     public void showMessage(String text){
         message = text;
         messageOn = true;
     }
-
     public void draw(Graphics2D g2){
-
         this.g2 = g2;
         // g2.setFont(maruMFont);
         g2.setFont(purisa);
@@ -69,33 +62,26 @@ public class UI {
         g2.setColor(Color.white);
         g2.drawImage(keyImage, gp.tileSize/2, gp.tileSize/2, gp.tileSize, gp.tileSize, null);
         g2.drawString("x " + gp.player.hasKey, 74, 65);
-
         //TIME
         playTime += (double)1/60;
         g2.drawString("Time: "+DF.format(playTime), gp.tileSize * 12, 65);
-
         //DISPLAY MESSAGE
         if(messageOn == true){
-            
             g2.setFont(g2.getFont().deriveFont(30F));
             g2.drawString(message, gp.tileSize/2, gp.tileSize*5);
-
             messageCounter++;
             if(messageCounter > 120){
                 messageCounter = 0;
                 messageOn = false;
             }
         }
-
         //TITLE SCREEN
         if(gp.gameState == gp.titleState){
             drawTitlesScreen();
         }
-
         //PLAY STATE
         if(gp.gameState == gp.playState){
             drawPlayerLife();
-
         }
         //PAUSE STATE
         if(gp.gameState == gp.gamePause){
@@ -117,7 +103,6 @@ public class UI {
             drawInventory();
         }
     }
-
     public void drawPlayerLife(){
         int x = gp.tileSize / 2;
         int y = gp.tileSize * 10;
@@ -151,7 +136,7 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.BOLD, 60F));
         String text = "Blueman Adventure";
         int x = getXforCenteredText(text);
-        int y = gp.tileSize * 3;
+        int y = gp.tileSize * 2;
         //SHADOW COLOR
         g2.setColor(new Color(153, 153, 153));
         g2.drawString(text, x + 5, y + 5);
@@ -216,7 +201,6 @@ public class UI {
         }
     }
     public void drawDialogueScreen(){
-
         //DRAW ON WINDOW
         int x = gp.tileSize * 2;
         int y = gp.tileSize / 2;
@@ -226,7 +210,6 @@ public class UI {
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 23F));
         x += gp.tileSize;
         y += gp.tileSize;
-
         for(String line: currentDialogue.split("\n")){
             g2.drawString(line, x, y);
             y += 40;
@@ -352,7 +335,6 @@ public class UI {
         g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
     }
     public int getXforCenteredText(String text){
-
         int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth/2 - length/2;
         return x;
