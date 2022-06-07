@@ -31,6 +31,7 @@ public class Entity {
     public int invincibleCounter = 0;
     boolean hpBarOn = false;
     public int hpBarCounter = 0;
+
     //CHARACTER STATUS
     public int type;
     public String name;
@@ -48,11 +49,15 @@ public class Entity {
     public Entity currentShield;
     public Entity currentKey;
     public Projectile projectile;
+
     //ITEMS ATTRIBUTES
     public int attackValue;
     public int defenseValue;
     public String description = "";
     public int useCost;
+
+    //BACKGROUND
+    public BufferedImage backgroundImage;
 
     public Entity(GamePanel gp){
         this.gp = gp;

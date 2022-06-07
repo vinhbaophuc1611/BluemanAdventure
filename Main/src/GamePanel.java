@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import java.util.Collections;
 import java.util.Comparator;
+import java.awt.image.*;
 
 public class GamePanel extends JPanel implements Runnable {
     
@@ -30,6 +31,13 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldHeight = tileSize * maxWorldRow;
     public final int maxMap = 10;
     public int currentMap = 1; 
+
+    //FOR FULL SCREEN
+    int screenWidth2 = screenWidth;
+    int screenHeight2 = screenHeight;
+    BufferedImage tempScreen;
+    public boolean fullScreenOn = false;
+
     // FPS
     int FPS = 60;
     //SYSTEM
@@ -39,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     public EventHandler eHandler = new EventHandler(this); 
+    Config config = new Config(this);
     Thread gameThread;
     //ENTITY AND OBJECT
     public Player player = new Player(this, keyH);
@@ -54,7 +63,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int gamePause = 2;
     public final int dialogueState = 3;
     public final int characterState = 4;
-    public final int dialogueMonsterState = 5;
+    public final int optionState = 5;
+    public final int gameOverState = 6;
+    public final int dialogueMonsterState = 7;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -63,12 +74,41 @@ public class GamePanel extends JPanel implements Runnable {
         this.addKeyListener((KeyListener) keyH);
         this.setFocusable(true);
     }
+    
     public void setupGame() {
         assetSetter.setobject();
         assetSetter.setNPC();
         assetSetter.setMonster();
         gameState = titleState;
     }
+    //RETRY
+    public void retry() {
+        //SET POSITIONS
+        player.setDefaultPoisitionns();
+        player.restoreLifeAndMan();
+
+        //SET NPCS AND MONSTER
+        assetSetter.setNPC();
+        assetSetter.setMonster();
+    }
+    //RESTART
+    public void restart() {
+        //SET DEFAULT VALUES
+        player.setDefaultValues();
+        player.setItems();
+
+        //SET NPCS AND MONSTERS
+        assetSetter.setobject();
+        assetSetter.setNPC();
+        assetSetter.setMonster();
+    }
+    public void setFullScreen() {
+
+        //GET LOCAL SCREEN DEVICE
+        // GraphicsEnvironment ge = new GraphicsEnvironment.getLocalGraphicsEnvironment();
+
+    }
+
     public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -130,7 +170,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         if(gameState == gamePause){
-            //WAITING 
+            //WAITING
         }
     }
     public void paintComponent(Graphics g) {

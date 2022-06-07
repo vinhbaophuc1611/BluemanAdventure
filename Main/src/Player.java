@@ -49,7 +49,18 @@ public class Player extends Entity {
         currentKey = new OBJ_KEY(gp);
         projectile = new OBJ_FIREBALL(gp);
     }
+    public void setDefaultPoisitionns() {
+        worldX = gp.tileSize * 42;
+        worldY = gp.tileSize * 43;
+
+        direction = "down";
+    }
+    public void restoreLifeAndMan() {
+        life = maxLife;
+        invincible = false;
+    }
     public void setItems(){
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
     }
@@ -146,6 +157,9 @@ public class Player extends Entity {
                 invincible = false;
                 invincibleCounter = 0;
             }
+        }
+        if(life <= 0){
+            gp.gameState = gp.gameOverState;
         }
     }
     public void pickUpObject(int i){
