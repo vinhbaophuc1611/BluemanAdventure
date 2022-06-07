@@ -69,7 +69,6 @@ public class Player extends Entity {
         right1 = setup("player_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("player_right_2", gp.tileSize, gp.tileSize);
     }
-
     public BufferedImage setup(String imageName){
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -81,7 +80,6 @@ public class Player extends Entity {
         }
         return image; 
     }
-
     public void update() {
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true || keyH.rightPressed == true){
             if(keyH.upPressed == true) {
