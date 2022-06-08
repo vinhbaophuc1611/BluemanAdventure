@@ -1,10 +1,10 @@
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.awt.*;
 // import javax.swing.*;
 // import java.awt.event.*;
 // import java.awt.event.KeyEvent;
-import java.awt.Graphics2D;
+import java.awt.*;
+
 import javax.swing.JPanel;
 import java.util.Collections;
 import java.util.Comparator;
@@ -16,9 +16,9 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; // 48x48 tile 
-    public final int maxScreenCol = 16;
+    public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
-    public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    public final int screenWidth = tileSize * maxScreenCol; // 960 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // public final int screenWidth = 1920;
@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     int screenHeight2 = screenHeight;
     BufferedImage tempScreen;
     public boolean fullScreenOn = false;
+    Graphics2D g2;
 
     // FPS
     int FPS = 60;
@@ -80,6 +81,11 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setNPC();
         assetSetter.setMonster();
         gameState = titleState;
+
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_RGB);
+        g2 = (Graphics2D)tempScreen.getGraphics();
+
+        setFullScreen();
     }
     //RETRY
     public void retry() {
@@ -105,7 +111,13 @@ public class GamePanel extends JPanel implements Runnable {
     public void setFullScreen() {
 
         //GET LOCAL SCREEN DEVICE
-        // GraphicsEnvironment ge = new GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsEnvironment ge = new GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice gd = ge.getDefaultScreenDevice();
+        gd.setFullScreenWindow(Main.window);
+
+        //GET FULL SCREEN WIDTH AND HEIGHT
+        screenWidth2 = Main.window.getWidth();
+        screenHeight2 = Main.window.getHeight();
 
     }
 
@@ -122,7 +134,9 @@ public class GamePanel extends JPanel implements Runnable {
             // 1 UPDATE: update information such as character positions
             update();
             // 2 DRAW: draw the screen with the update information
-            repaint();
+            // repaint();
+            drawToTempScreen(); // draw everything to the buffered image
+            drawToScreen(); //draw the buffered image to the screen
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1000000;
@@ -173,10 +187,11 @@ public class GamePanel extends JPanel implements Runnable {
             //WAITING
         }
     }
-    public void paintComponent(Graphics g) {
+    public void drawToTempScreen() {
 
-        super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        // super.paintComponent(g);
+        // Graphics2D g2 = (Graphics2D)g;
+
         //DEBUG
         long drawStart = 0;
         if(keyH.checkDrawTime == true){
@@ -239,6 +254,79 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("Draw Time: " + passed, 10, 400);
             System.out.println("Draw Time: " + passed);
         }
-        g2.dispose();
+
     }
+    public void drawToScreen() {
+        Graphics g = getGraphics();
+        g.drawImage(tempScreen, 0, 0, screenWidth2, screenHeight2, null);
+        g.dispose();
+    }
+    // public void paintComponent(Graphics g) {
+
+    //     super.paintComponent(g);
+    //     Graphics2D g2 = (Graphics2D)g;
+    //     //DEBUG
+    //     long drawStart = 0;
+    //     if(keyH.checkDrawTime == true){
+    //         drawStart = System.nanoTime();
+    //     }
+    //     //TITLE SCREEN
+    //     if(gameState == titleState){
+    //         ui.draw(g2);
+    //     }
+    //     //OTHERS
+    //     else{
+    //         //TILE
+    //         tileM.draw(g2);
+    //         //ADD ENTITES TO THE LIST
+    //         entityList.add(player);
+    //         for(int i = 0; i < npc[1].length; i++){
+    //             if(npc[currentMap][i] != null){
+    //                 entityList.add(npc[currentMap][i]);
+    //             }
+    //         }
+    //         for(int i = 0; i < obj[1].length; i++){
+    //             if(obj[currentMap][i] != null){
+    //                 entityList.add(obj[currentMap][i]);
+    //             }
+    //         }
+    //         for(int i = 0; i < monster[1].length; i++){
+    //             if(monster[currentMap][i] != null){
+    //                 entityList.add(monster[currentMap][i]);
+    //             }
+    //         }
+    //         for(int i = 0; i < projectileList.size(); i++){
+    //             if(projectileList.get(i) != null){
+    //                 entityList.add(projectileList.get(i));
+    //             }
+    //         }
+    //         //SORT
+    //         Collections.sort(entityList, new Comparator<Entity>(){
+    //             @Override
+    //             public int compare(Entity entity1, Entity entity2){
+    //                 int result = Integer.compare(entity1.worldY, entity2.worldY);
+    //                 return result;
+    //             }
+    //         });
+    //         //DRAW ENTITIES
+    //         for(int i = 0; i < entityList.size(); i++){
+    //             entityList.get(i).draw(g2, null);
+    //         }
+    //         //EMPTY ENTITY LIST
+    //         for(int i = 0; i < entityList.size(); i++){
+    //             entityList.remove(i);
+    //         }
+    //         //UI
+    //         ui.draw(g2);
+    //     }
+    //     //DEBUG
+    //     if(keyH.checkDrawTime == true){
+    //         long drawEnd = System.nanoTime();
+    //         long passed = drawEnd - drawStart;
+    //         g2.setColor(Color.white);
+    //         g2.drawString("Draw Time: " + passed, 10, 400);
+    //         System.out.println("Draw Time: " + passed);
+    //     }
+    //     g2.dispose();
+    // }
 }

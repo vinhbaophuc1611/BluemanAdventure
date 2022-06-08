@@ -34,8 +34,7 @@ public class UI {
 
     public UI(GamePanel gp){
         this.gp = gp;
-        // arial_40 = new Font("Cambria", Font.PLAIN, 40);
-        // arial_80B = new Font("Arial", Font.BOLD, 80);
+        
         try{
             InputStream is = getClass().getResourceAsStream("x12y16pxMaruMonica.ttf");
             maruMFont = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -238,7 +237,7 @@ public class UI {
     }
     public void drawCharacterState(){
         //CREATE FRAME
-        final int frameX = gp.tileSize - 40;
+        final int frameX = (gp.tileSize - 40)*2;
         final int frameY = gp.tileSize;
         final int frameWidth = gp.tileSize * 7;
         final int frameHeight = gp.tileSize * 10;
