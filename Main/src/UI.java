@@ -117,7 +117,7 @@ public class UI {
             drawOptionScreen();
         }
         //GAME OVER STATE
-        if(gp.gameState == gp.optionState){
+        if(gp.gameState == gp.gameOverState){
             drawGameOverScreen();
         }
     }
