@@ -80,15 +80,16 @@ public class AssetSetter{
         gp.monster[mapNum][i].worldY = gp.tileSize * 36;
         i++;
 
-        gp.monster[mapNum][i] = new MON(gp);
-        gp.monster[mapNum][i].worldX = gp.tileSize * 11;
-        gp.monster[mapNum][i].worldY = gp.tileSize * 39;
-        i++;
+        // gp.monster[mapNum][i] = new MON2(gp);
+        // gp.monster[mapNum][i].worldX = gp.tileSize * 11;
+        // gp.monster[mapNum][i].worldY = gp.tileSize * 39;
+        // i++;
 
         mapNum = 0;
-        gp.monster[mapNum][i] = new MON(gp);
+        gp.monster[mapNum][i] = new MON2(gp);
         gp.monster[mapNum][i].worldX = gp.tileSize * 15;
         gp.monster[mapNum][i].worldY = gp.tileSize * 11;
         i++;
+        
     }
 }
