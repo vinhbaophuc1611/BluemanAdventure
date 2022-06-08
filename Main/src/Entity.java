@@ -1,5 +1,3 @@
-// import src.GamePanel;
-// import Main.KeyHandler;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.*;
@@ -31,6 +29,7 @@ public class Entity {
     public int invincibleCounter = 0;
     boolean hpBarOn = false;
     public int hpBarCounter = 0;
+
     //CHARACTER STATUS
     public int type;
     public String name;
@@ -53,7 +52,8 @@ public class Entity {
     public int defenseValue;
     public String description = "";
     public int useCost;
-
+    //BACKGROUND
+    public BufferedImage backgroundImage;
     public Entity(GamePanel gp){
         this.gp = gp;
     }
@@ -77,6 +77,18 @@ public class Entity {
         case "right":
             direction = "left";
             break;
+        }
+    }
+    public void use() {}
+    public void checkDrop() {}
+    public void dropItem(Entity dropppedItem) {
+        for(int i = 0; i < gp.obj[gp.currentMap].length; i++) {
+            if(gp.obj[gp.currentMap][i] == null) {
+                gp.obj[gp.currentMap][i] = dropppedItem;
+                gp.obj[gp.currentMap][i].worldX = worldX;
+                gp.obj[gp.currentMap][i].worldY = worldY;
+                break;
+            }
         }
     }
     public void monsterSpeak(){
@@ -108,7 +120,7 @@ public class Entity {
         gp.cChecker.checkEntity(this, gp.npc);
         gp.cChecker.checkEntity(this, gp.monster);
         boolean contactPlayer = false;gp.cChecker.checkPlayer(this);
-        if(this.type == 2 && contactPlayer == true){
+        if(this.type == 2 && contactPlayer == true && this.type == 4){
             if(gp.player.invincible == false){
                 gp.player.life -= 1;
                 gp.player.invincible = true;
@@ -183,7 +195,7 @@ public class Entity {
                             }
                             break;
                     }
-                if(type == 2 && hpBarOn == true){
+                if(type == 2  && type == 4 && hpBarOn == true){
                     double oneScale = (double)gp.tileSize/maxLife;
                     double hpBarValue = oneScale * life;
 

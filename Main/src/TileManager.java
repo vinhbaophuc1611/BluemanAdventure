@@ -1,10 +1,6 @@
-// import java.awt.event.KeyListener;
 import java.awt.*;
 import javax.imageio.ImageIO;
-// import javax.swing.*;
-// import java.awt.image.BufferedImage;
 import java.io.*;
-// import java.awt.image.BufferedImage;
 
 public class TileManager {
     GamePanel gp;
@@ -19,7 +15,7 @@ public class TileManager {
         loadMap("MAP2.txt" ,1);
     }
     public void getTileImage() {
-        setup(0, "OBJ_GROVE_2", false);
+        setup(0, "OBJ_STONE_2", true);
         setup(1, "OBJ_WALL", true);
         setup(2, "OBJ_WATER_2", true);
         setup(3, "OBJ_GROVE_2", false);
@@ -63,8 +59,6 @@ public class TileManager {
     public void draw(Graphics2D g2) {
         int worldCol = 0;
         int worldRow = 0;
-        // int x = 0;
-        // int y = 0;
         while(worldCol < gp.maxWorldCol && worldRow < gp.maxWorldRow) {
             int tileNum = mapTileNum[gp.currentMap][worldCol][worldRow];
             int worldX = worldCol * gp.tileSize;
@@ -78,12 +72,9 @@ public class TileManager {
                 g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
             worldCol++;
-            // x += gp.tileSize;
             if(worldCol == gp.maxWorldCol) {
                 worldCol = 0; 
-                // x = 0;
-                worldRow++; 
-                // y += gp.tileSize;
+                worldRow++;
             }
         }
     }
