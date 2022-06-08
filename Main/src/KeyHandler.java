@@ -89,7 +89,7 @@ public class KeyHandler implements KeyListener {
     public void gameOverState(int code) {
         if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP) {
             gp.ui.commandNum--;
-            if(gp.ui.commandNum == 0) {
+            if(gp.ui.commandNum < 0) {
                 gp.ui.commandNum = 1;
             }
         }

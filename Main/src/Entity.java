@@ -84,6 +84,18 @@ public class Entity {
             break;
         }
     }
+    public void use() {}
+    public void checkDrop() {}
+    public void dropItem(Entity dropppedItem) {
+        for(int i = 0; i < gp.obj[gp.currentMap].length; i++) {
+            if(gp.obj[gp.currentMap][i] == null) {
+                gp.obj[gp.currentMap][i] = dropppedItem;
+                gp.obj[gp.currentMap][i].worldX = worldX;
+                gp.obj[gp.currentMap][i].worldY = worldY;
+                break;
+            }
+        }
+    }
     public void monsterSpeak(){
         if(dialoguesMonster[dialoguesMonsterIndex] == null){
             dialoguesMonsterIndex = 0;

@@ -164,27 +164,37 @@ public class Player extends Entity {
     }
     public void pickUpObject(int i){
         if(i != 999){
-            String objectName = gp.obj[gp.currentMap][i].name;
-            switch(objectName){
-                case "Key":
-                hasKey++;
-                inventory.add(currentKey);
+            //PICK ONLY ITEMS
+            if(gp.obj[gp.currentMap][i].type == 1) {
+                // gp.obj[gp.currentMap][i].use(this);
                 gp.obj[gp.currentMap][i] = null;
-                gp.ui.showMessage("You got a key!");
-                break;
-                case "Door":
-                    if(hasKey > 0){
-                        gp.obj[gp.currentMap][i] = null;
-                        hasKey--;
-                        inventory.remove(currentKey);
-                        gp.ui.showMessage("You opened the door!");
-                    }
-                    else {
-                        gp.ui.showMessage("You need a key to open!");
-                    }
-                    System.out.println("Key: " + hasKey);
-                    break;
             }
+
+            //INVENTORY ITEMS
+            else {
+                String objectName = gp.obj[gp.currentMap][i].name;
+                switch(objectName){
+                    case "Key":
+                        hasKey++;
+                        inventory.add(currentKey);
+                        gp.obj[gp.currentMap][i] = null;
+                        gp.ui.showMessage("You got a key!");
+                    break;
+                    case "Door":
+                        if(hasKey > 0){
+                            gp.obj[gp.currentMap][i] = null;
+                            hasKey--;
+                            inventory.remove(currentKey);
+                            gp.ui.showMessage("You opened the door!");
+                        }
+                        else {
+                            gp.ui.showMessage("You need a key to open!");
+                        }
+                        System.out.println("Key: " + hasKey);
+                    break;
+                }
+            }
+            
         }
     }
     public void interactMonster(int i){

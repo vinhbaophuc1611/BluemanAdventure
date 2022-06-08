@@ -55,6 +55,17 @@ public class MON extends Entity {
     }
     public void monsterSpeak(){
         super.monsterSpeak();
-    }  
+    }
+    public void checkDrop() {
+
+        //CAST A DIE
+        int i = new Random().nextInt(50) + 1;
+
+        //SET THE MONSTER DROP
+        if(i < 50) {
+            dropItem(new OBJ_KEY(gp));
+        }
+
+    }
 
 }
